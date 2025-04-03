@@ -70,6 +70,9 @@ table{
     text-align: center;
     margin: 5px 0;
 }
+#deleteAll{
+    margin: 10px 0;
+}
 table th{
     text-transform: uppercase;
 }

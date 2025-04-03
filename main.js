@@ -24,7 +24,7 @@ function getTotal(){
 }
 //creata a product
 
-let dataPro;
+let dataPro = [];
 if (localStorage.product != null)
 {
     dataPro = JSON.parse(localStorage.product);
@@ -32,8 +32,9 @@ if (localStorage.product != null)
 else
 {
 
-    let dataPro = [];
+    dataPro = [];
 }
+
 submit.onclick = function(){
     let newPro = {
         title:title.value,
@@ -51,6 +52,7 @@ submit.onclick = function(){
     clearData();
     showData();
 }
+
 
 //clear inputs
 
@@ -86,6 +88,23 @@ function showData(){
 
     }
     document.getElementById('tbody').innerHTML = table; 
+    let btnDelete = document.getElementById('deleteAll');
+    if(dataPro.length > 0 )
+    {
+        btnDelete.innerHTML = `
+                                <button onclick ="deleteAll()">Delete All</button>
+        `
+    }
+    else
+    {
+        btnDelete.innerHTML = '';
+    }
+
+}
+function deleteAll(){
+    localStorage.clear();
+    dataPro.splice(0);
+    showData();
 
 }
 showData()
@@ -95,6 +114,7 @@ function deleteData(i){
     localStorage.product = JSON.stringify(dataPro);
     showData();
 }
+
 //update
 //search
 //clean data
