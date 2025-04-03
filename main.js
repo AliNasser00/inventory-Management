@@ -47,10 +47,22 @@ submit.onclick = function(){
         
     }
     dataPro.push(newPro);
-    localStorage.setItem('product', JSON.stringify(dataPro))
+    localStorage.setItem('product', JSON.stringify(dataPro));
+    clearData();
 }
-//save to localstorage
+
 //clear inputs
+
+function clearData(){
+    title.value = '';
+    price.value = '';
+    taxes.value = '';
+    ads.value = '';
+    discount.value = '';
+    count.value = '';
+    category.value = '';
+    total.innerHTML = '';
+}
 //read
 //count
 //delete
