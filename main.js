@@ -8,6 +8,9 @@ let submit = document.getElementById('submit');
 let category = document.getElementById('category');
 let title = document.getElementById('title');
 
+let mood = 'create';
+var tmp;
+
 //get total
 function getTotal(){
     if(price.value != ''){
@@ -47,16 +50,24 @@ submit.onclick = function(){
         total:total.innerHTML,
         
     }
+    if(mood === 'create'){
     if( newPro.count > 1){
-        for(let i = 0; i < newPro.count;i++)
-        {
+            for(let i = 0; i < newPro.count;i++)
+            {
+                dataPro.push(newPro);
+
+            }
+        }
+        else{
             dataPro.push(newPro);
 
         }
     }
     else{
-        dataPro.push(newPro);
-
+        dataPro[tmp] = newPro;
+        mood = 'create';
+        count.style.display = 'block';
+        submit.innerHTML = 'Submit';
     }
     localStorage.setItem('product', JSON.stringify(dataPro));
     clearData();
@@ -79,6 +90,7 @@ function clearData(){
 //read
 
 function showData(){
+    getTotal();
     let table = '';
     for(let i = 0; i < dataPro.length; i++){
         table += `  <tr>
@@ -90,7 +102,7 @@ function showData(){
                         <td>${dataPro[i].discount}</td>
                         <td>${dataPro[i].total}</td>
                         <td>${dataPro[i].category}</td>
-                        <td><button id="update">Update</button></td>
+                        <td><button onclick = "updateData(${i})" id="update">Update</button></td>
                         <td><button onclick ="deleteData(${i})" id="delete">Delete</button></td>
 
                     </tr>
@@ -128,5 +140,26 @@ function deleteData(i){
 
 
 //update
+function updateData(i){
+    title.value = dataPro[i].title;
+    price.value = dataPro[i].price;
+    ads.value = dataPro[i].ads;
+    discount.value = dataPro[i].discount;
+    category.value = dataPro[i].category;
+    count.value = dataPro[i].count;
+    taxes.value = dataPro[i].taxes;
+    tmp = i;
+
+    getTotal();  
+    count.style.display = 'none';
+    submit.innerHTML = 'Update';
+    mood = 'update';
+    scroll({
+        top:0,
+        behavior:'smooth'
+    })
+     
+}
+
 //search
 //clean data
