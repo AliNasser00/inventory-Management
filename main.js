@@ -28,6 +28,7 @@ function getTotal(){
 //creata a product
 
 let dataPro = [];
+
 if (localStorage.product != null)
 {
     dataPro = JSON.parse(localStorage.product);
@@ -50,25 +51,29 @@ submit.onclick = function(){
         total:total.innerHTML,
         
     }
-    if(mood === 'create'){
-    if( newPro.count > 1){
-            for(let i = 0; i < newPro.count;i++)
-            {
-                dataPro.push(newPro);
-
+    if(title.value != '' && count.value < 100 && price.value != '' && category.value != '')
+    {
+        if(mood === 'create'){
+            if( newPro.count > 1){
+                    for(let i = 0; i < newPro.count;i++)
+                    {
+                        dataPro.push(newPro);
+        
+                    }
+                }
+                else{
+                    dataPro.push(newPro);
+        
+                }
             }
-        }
-        else{
-            dataPro.push(newPro);
-
-        }
+            else{
+                dataPro[tmp] = newPro;
+                mood = 'create';
+                count.style.display = 'block';
+                submit.innerHTML = 'Submit';
+            }
     }
-    else{
-        dataPro[tmp] = newPro;
-        mood = 'create';
-        count.style.display = 'block';
-        submit.innerHTML = 'Submit';
-    }
+    
     localStorage.setItem('product', JSON.stringify(dataPro));
     clearData();
     showData();
